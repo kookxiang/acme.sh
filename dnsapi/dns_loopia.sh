@@ -14,8 +14,8 @@ dns_loopia_add() {
   fulldomain=$1
   txtvalue=$2
 
-  LOOPIA_User="${LOOPIA_User:-$(_readaccountconf_mutable LOOPIA_User)}"
-  LOOPIA_Password="${LOOPIA_Password:-$(_readaccountconf_mutable LOOPIA_Password)}"
+  LOOPIA_User="${LOOPIA_User:-$(_readdomainconf_mutable LOOPIA_User)}"
+  LOOPIA_Password="${LOOPIA_Password:-$(_readdomainconf_mutable LOOPIA_Password)}"
   if [ -z "$LOOPIA_User" ] || [ -z "$LOOPIA_Password" ]; then
     LOOPIA_User=""
     LOOPIA_Password=""
@@ -25,8 +25,8 @@ dns_loopia_add() {
   fi
 
   #save the api key and email to the account conf file.
-  _saveaccountconf_mutable LOOPIA_User "$LOOPIA_User"
-  _saveaccountconf_mutable LOOPIA_Password "$LOOPIA_Password"
+  _savedomainconf_mutable LOOPIA_User "$LOOPIA_User"
+  _savedomainconf_mutable LOOPIA_Password "$LOOPIA_Password"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then
@@ -47,8 +47,8 @@ dns_loopia_rm() {
   fulldomain=$1
   txtvalue=$2
 
-  LOOPIA_User="${LOOPIA_User:-$(_readaccountconf_mutable LOOPIA_User)}"
-  LOOPIA_Password="${LOOPIA_Password:-$(_readaccountconf_mutable LOOPIA_Password)}"
+  LOOPIA_User="${LOOPIA_User:-$(_readdomainconf_mutable LOOPIA_User)}"
+  LOOPIA_Password="${LOOPIA_Password:-$(_readdomainconf_mutable LOOPIA_Password)}"
   if [ -z "$LOOPIA_User" ] || [ -z "$LOOPIA_Password" ]; then
     LOOPIA_User=""
     LOOPIA_Password=""
@@ -58,8 +58,8 @@ dns_loopia_rm() {
   fi
 
   #save the api key and email to the account conf file.
-  _saveaccountconf_mutable LOOPIA_User "$LOOPIA_User"
-  _saveaccountconf_mutable LOOPIA_Password "$LOOPIA_Password"
+  _savedomainconf_mutable LOOPIA_User "$LOOPIA_User"
+  _savedomainconf_mutable LOOPIA_Password "$LOOPIA_Password"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then

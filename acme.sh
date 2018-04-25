@@ -1999,6 +1999,19 @@ _readdomainconf() {
   _read_conf "$DOMAIN_CONF" "$1"
 }
 
+#key
+_readdomainconf_mutable() {
+  _rac_key="$1"
+  _readdomainconf "SAVED_$_rac_key"
+}
+
+#key  value
+_savedomainconf_mutable() {
+  _save_conf "$DOMAIN_CONF" "SAVED_$1" "$2"
+  #remove later
+  _cleardomainconf "$1"
+}
+
 #_saveaccountconf  key  value
 _saveaccountconf() {
   _save_conf "$ACCOUNT_CONF_PATH" "$1" "$2"

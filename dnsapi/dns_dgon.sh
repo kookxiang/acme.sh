@@ -21,7 +21,7 @@ dns_dgon_add() {
   fulldomain="$(echo "$1" | _lower_case)"
   txtvalue=$2
 
-  DO_API_KEY="${DO_API_KEY:-$(_readaccountconf_mutable DO_API_KEY)}"
+  DO_API_KEY="${DO_API_KEY:-$(_readdomainconf_mutable DO_API_KEY)}"
   # Check if API Key Exist
   if [ -z "$DO_API_KEY" ]; then
     DO_API_KEY=""
@@ -35,7 +35,7 @@ dns_dgon_add() {
   _debug txtvalue "$txtvalue"
 
   ## save the env vars (key and domain split location) for later automated use
-  _saveaccountconf_mutable DO_API_KEY "$DO_API_KEY"
+  _savedomainconf_mutable DO_API_KEY "$DO_API_KEY"
 
   ## split the domain for DO API
   if ! _get_base_domain "$fulldomain"; then
@@ -76,7 +76,7 @@ dns_dgon_rm() {
   fulldomain="$(echo "$1" | _lower_case)"
   txtvalue=$2
 
-  DO_API_KEY="${DO_API_KEY:-$(_readaccountconf_mutable DO_API_KEY)}"
+  DO_API_KEY="${DO_API_KEY:-$(_readdomainconf_mutable DO_API_KEY)}"
   # Check if API Key Exist
   if [ -z "$DO_API_KEY" ]; then
     DO_API_KEY=""

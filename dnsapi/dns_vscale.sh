@@ -22,7 +22,7 @@ dns_vscale_add() {
     return 1
   fi
 
-  _saveaccountconf VSCALE_API_KEY "$VSCALE_API_KEY"
+  _savedomainconf VSCALE_API_KEY "$VSCALE_API_KEY"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then

@@ -21,18 +21,18 @@ dns_autodns_add() {
   fulldomain="$1"
   txtvalue="$2"
 
-  AUTODNS_USER="${AUTODNS_USER:-$(_readaccountconf_mutable AUTODNS_USER)}"
-  AUTODNS_PASSWORD="${AUTODNS_PASSWORD:-$(_readaccountconf_mutable AUTODNS_PASSWORD)}"
-  AUTODNS_CONTEXT="${AUTODNS_CONTEXT:-$(_readaccountconf_mutable AUTODNS_CONTEXT)}"
+  AUTODNS_USER="${AUTODNS_USER:-$(_readdomainconf_mutable AUTODNS_USER)}"
+  AUTODNS_PASSWORD="${AUTODNS_PASSWORD:-$(_readdomainconf_mutable AUTODNS_PASSWORD)}"
+  AUTODNS_CONTEXT="${AUTODNS_CONTEXT:-$(_readdomainconf_mutable AUTODNS_CONTEXT)}"
 
   if [ -z "$AUTODNS_USER" ] || [ -z "$AUTODNS_CONTEXT" ] || [ -z "$AUTODNS_PASSWORD" ]; then
     _err "You don't specify autodns user, password and context."
     return 1
   fi
 
-  _saveaccountconf_mutable AUTODNS_USER "$AUTODNS_USER"
-  _saveaccountconf_mutable AUTODNS_PASSWORD "$AUTODNS_PASSWORD"
-  _saveaccountconf_mutable AUTODNS_CONTEXT "$AUTODNS_CONTEXT"
+  _savedomainconf_mutable AUTODNS_USER "$AUTODNS_USER"
+  _savedomainconf_mutable AUTODNS_PASSWORD "$AUTODNS_PASSWORD"
+  _savedomainconf_mutable AUTODNS_CONTEXT "$AUTODNS_CONTEXT"
 
   _debug "First detect the root zone"
 
@@ -64,9 +64,9 @@ dns_autodns_rm() {
   fulldomain="$1"
   txtvalue="$2"
 
-  AUTODNS_USER="${AUTODNS_USER:-$(_readaccountconf_mutable AUTODNS_USER)}"
-  AUTODNS_PASSWORD="${AUTODNS_PASSWORD:-$(_readaccountconf_mutable AUTODNS_PASSWORD)}"
-  AUTODNS_CONTEXT="${AUTODNS_CONTEXT:-$(_readaccountconf_mutable AUTODNS_CONTEXT)}"
+  AUTODNS_USER="${AUTODNS_USER:-$(_readdomainconf_mutable AUTODNS_USER)}"
+  AUTODNS_PASSWORD="${AUTODNS_PASSWORD:-$(_readdomainconf_mutable AUTODNS_PASSWORD)}"
+  AUTODNS_CONTEXT="${AUTODNS_CONTEXT:-$(_readdomainconf_mutable AUTODNS_CONTEXT)}"
 
   if [ -z "$AUTODNS_USER" ] || [ -z "$AUTODNS_CONTEXT" ] || [ -z "$AUTODNS_PASSWORD" ]; then
     _err "You don't specify autodns user, password and context."

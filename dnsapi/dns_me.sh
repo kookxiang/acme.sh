@@ -2,7 +2,7 @@
 
 # bug reports to dev@1e.ca
 
-# ME_Key=qmlkdjflmkqdjf	
+# ME_Key=qmlkdjflmkqdjf
 # ME_Secret=qmsdlkqmlksdvnnpae
 
 ME_Api=https://api.dnsmadeeasy.com/V2.0/dns/managed
@@ -23,8 +23,8 @@ dns_me_add() {
   fi
 
   #save the api key and email to the account conf file.
-  _saveaccountconf ME_Key "$ME_Key"
-  _saveaccountconf ME_Secret "$ME_Secret"
+  _savedomainconf ME_Key "$ME_Key"
+  _savedomainconf ME_Secret "$ME_Secret"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then

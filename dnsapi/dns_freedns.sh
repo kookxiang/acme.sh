@@ -44,7 +44,7 @@ dns_freedns_add() {
 
   _debug "FreeDNS login cookies: $FREEDNS_COOKIE (cached = $using_cached_cookies)"
 
-  _saveaccountconf FREEDNS_COOKIE "$FREEDNS_COOKIE"
+  _savedomainconf FREEDNS_COOKIE "$FREEDNS_COOKIE"
 
   # split our full domain name into two parts...
   i="$(echo "$fulldomain" | tr '.' ' ' | wc -w)"
@@ -134,7 +134,7 @@ dns_freedns_rm() {
 
   # Need to read cookie from conf file again in case new value set
   # during login to FreeDNS when TXT record was created.
-  # acme.sh does not have a _readaccountconf() function
+  # acme.sh does not have a _readdomainconf() function
   FREEDNS_COOKIE="$(_read_conf "$ACCOUNT_CONF_PATH" "FREEDNS_COOKIE")"
   _debug "FreeDNS login cookies: $FREEDNS_COOKIE"
 
@@ -193,7 +193,7 @@ dns_freedns_rm() {
 
           if [ -n "$DNSdataid" ] && _startswith "$txtvalue" "$DNSvalue"; then
             # Found a match. But note... Website is truncating the
-            # value field so we are only testing that part that is not 
+            # value field so we are only testing that part that is not
             # truncated.  This should be accurate enough.
             _debug "Deleting TXT record for $fulldomain, $txtvalue"
             _freedns_delete_txt_record "$FREEDNS_COOKIE" "$DNSdataid"

@@ -27,8 +27,8 @@ dns_cx_add() {
   REST_API="$CX_Api"
 
   #save the api key and email to the account conf file.
-  _saveaccountconf CX_Key "$CX_Key"
-  _saveaccountconf CX_Secret "$CX_Secret"
+  _savedomainconf CX_Key "$CX_Key"
+  _savedomainconf CX_Secret "$CX_Secret"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then

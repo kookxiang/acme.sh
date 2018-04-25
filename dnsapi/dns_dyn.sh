@@ -38,9 +38,9 @@ dns_dyn_add() {
   fulldomain="$1"
   txtvalue="$2"
 
-  DYN_Customer="${DYN_Customer:-$(_readaccountconf_mutable DYN_Customer)}"
-  DYN_Username="${DYN_Username:-$(_readaccountconf_mutable DYN_Username)}"
-  DYN_Password="${DYN_Password:-$(_readaccountconf_mutable DYN_Password)}"
+  DYN_Customer="${DYN_Customer:-$(_readdomainconf_mutable DYN_Customer)}"
+  DYN_Username="${DYN_Username:-$(_readdomainconf_mutable DYN_Username)}"
+  DYN_Password="${DYN_Password:-$(_readdomainconf_mutable DYN_Password)}"
   if [ -z "$DYN_Customer" ] || [ -z "$DYN_Username" ] || [ -z "$DYN_Password" ]; then
     DYN_Customer=""
     DYN_Username=""
@@ -50,9 +50,9 @@ dns_dyn_add() {
   fi
 
   #save the config variables to the account conf file.
-  _saveaccountconf_mutable DYN_Customer "$DYN_Customer"
-  _saveaccountconf_mutable DYN_Username "$DYN_Username"
-  _saveaccountconf_mutable DYN_Password "$DYN_Password"
+  _savedomainconf_mutable DYN_Customer "$DYN_Customer"
+  _savedomainconf_mutable DYN_Username "$DYN_Username"
+  _savedomainconf_mutable DYN_Password "$DYN_Password"
 
   if ! _dyn_get_authtoken; then
     return 1
@@ -89,9 +89,9 @@ dns_dyn_rm() {
   fulldomain="$1"
   txtvalue="$2"
 
-  DYN_Customer="${DYN_Customer:-$(_readaccountconf_mutable DYN_Customer)}"
-  DYN_Username="${DYN_Username:-$(_readaccountconf_mutable DYN_Username)}"
-  DYN_Password="${DYN_Password:-$(_readaccountconf_mutable DYN_Password)}"
+  DYN_Customer="${DYN_Customer:-$(_readdomainconf_mutable DYN_Customer)}"
+  DYN_Username="${DYN_Username:-$(_readdomainconf_mutable DYN_Username)}"
+  DYN_Password="${DYN_Password:-$(_readdomainconf_mutable DYN_Password)}"
   if [ -z "$DYN_Customer" ] || [ -z "$DYN_Username" ] || [ -z "$DYN_Password" ]; then
     DYN_Customer=""
     DYN_Username=""

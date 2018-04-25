@@ -113,7 +113,7 @@ _Linode_API() {
     return 1
   fi
 
-  _saveaccountconf LINODE_API_KEY "$LINODE_API_KEY"
+  _savedomainconf LINODE_API_KEY "$LINODE_API_KEY"
 }
 
 ####################  Private functions below ##################################

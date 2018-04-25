@@ -15,8 +15,8 @@ dns_dp_add() {
   fulldomain=$1
   txtvalue=$2
 
-  DP_Id="${DP_Id:-$(_readaccountconf_mutable DP_Id)}"
-  DP_Key="${DP_Key:-$(_readaccountconf_mutable DP_Key)}"
+  DP_Id="${DP_Id:-$(_readdomainconf_mutable DP_Id)}"
+  DP_Key="${DP_Key:-$(_readdomainconf_mutable DP_Key)}"
   if [ -z "$DP_Id" ] || [ -z "$DP_Key" ]; then
     DP_Id=""
     DP_Key=""
@@ -26,8 +26,8 @@ dns_dp_add() {
   fi
 
   #save the api key and email to the account conf file.
-  _saveaccountconf_mutable DP_Id "$DP_Id"
-  _saveaccountconf_mutable DP_Key "$DP_Key"
+  _savedomainconf_mutable DP_Id "$DP_Id"
+  _savedomainconf_mutable DP_Key "$DP_Key"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then
@@ -44,8 +44,8 @@ dns_dp_rm() {
   fulldomain=$1
   txtvalue=$2
 
-  DP_Id="${DP_Id:-$(_readaccountconf_mutable DP_Id)}"
-  DP_Key="${DP_Key:-$(_readaccountconf_mutable DP_Key)}"
+  DP_Id="${DP_Id:-$(_readdomainconf_mutable DP_Id)}"
+  DP_Key="${DP_Key:-$(_readdomainconf_mutable DP_Key)}"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then

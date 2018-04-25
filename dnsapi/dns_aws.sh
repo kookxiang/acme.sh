@@ -19,8 +19,8 @@ dns_aws_add() {
   fulldomain=$1
   txtvalue=$2
 
-  AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID:-$(_readaccountconf_mutable AWS_ACCESS_KEY_ID)}"
-  AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY:-$(_readaccountconf_mutable AWS_SECRET_ACCESS_KEY)}"
+  AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID:-$(_readdomainconf_mutable AWS_ACCESS_KEY_ID)}"
+  AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY:-$(_readdomainconf_mutable AWS_SECRET_ACCESS_KEY)}"
 
   if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
     _use_container_role || _use_instance_role
@@ -36,8 +36,8 @@ dns_aws_add() {
 
   #save for future use, unless using a role which will be fetched as needed
   if [ -z "$_using_role" ]; then
-    _saveaccountconf_mutable AWS_ACCESS_KEY_ID "$AWS_ACCESS_KEY_ID"
-    _saveaccountconf_mutable AWS_SECRET_ACCESS_KEY "$AWS_SECRET_ACCESS_KEY"
+    _savedomainconf_mutable AWS_ACCESS_KEY_ID "$AWS_ACCESS_KEY_ID"
+    _savedomainconf_mutable AWS_SECRET_ACCESS_KEY "$AWS_SECRET_ACCESS_KEY"
   fi
 
   _debug "First detect the root zone"
@@ -83,8 +83,8 @@ dns_aws_rm() {
   fulldomain=$1
   txtvalue=$2
 
-  AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID:-$(_readaccountconf_mutable AWS_ACCESS_KEY_ID)}"
-  AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY:-$(_readaccountconf_mutable AWS_SECRET_ACCESS_KEY)}"
+  AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID:-$(_readdomainconf_mutable AWS_ACCESS_KEY_ID)}"
+  AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY:-$(_readdomainconf_mutable AWS_SECRET_ACCESS_KEY)}"
 
   if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
     _use_container_role || _use_instance_role

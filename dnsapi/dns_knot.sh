@@ -9,8 +9,8 @@ dns_knot_add() {
   _checkKey || return 1
   [ -n "${KNOT_SERVER}" ] || KNOT_SERVER="localhost"
   # save the dns server and key to the account.conf file.
-  _saveaccountconf KNOT_SERVER "${KNOT_SERVER}"
-  _saveaccountconf KNOT_KEY "${KNOT_KEY}"
+  _savedomainconf KNOT_SERVER "${KNOT_SERVER}"
+  _savedomainconf KNOT_KEY "${KNOT_KEY}"
 
   if ! _get_root "$fulldomain"; then
     _err "Domain does not exist."

@@ -13,19 +13,19 @@ dns_acmedns_add() {
   _debug fulldomain "$fulldomain"
   _debug txtvalue "$txtvalue"
 
-  ACMEDNS_UPDATE_URL="${ACMEDNS_UPDATE_URL:-$(_readaccountconf_mutable ACMEDNS_UPDATE_URL)}"
-  ACMEDNS_USERNAME="${ACMEDNS_USERNAME:-$(_readaccountconf_mutable ACMEDNS_USERNAME)}"
-  ACMEDNS_PASSWORD="${ACMEDNS_PASSWORD:-$(_readaccountconf_mutable ACMEDNS_PASSWORD)}"
-  ACMEDNS_SUBDOMAIN="${ACMEDNS_SUBDOMAIN:-$(_readaccountconf_mutable ACMEDNS_SUBDOMAIN)}"
+  ACMEDNS_UPDATE_URL="${ACMEDNS_UPDATE_URL:-$(_readdomainconf_mutable ACMEDNS_UPDATE_URL)}"
+  ACMEDNS_USERNAME="${ACMEDNS_USERNAME:-$(_readdomainconf_mutable ACMEDNS_USERNAME)}"
+  ACMEDNS_PASSWORD="${ACMEDNS_PASSWORD:-$(_readdomainconf_mutable ACMEDNS_PASSWORD)}"
+  ACMEDNS_SUBDOMAIN="${ACMEDNS_SUBDOMAIN:-$(_readdomainconf_mutable ACMEDNS_SUBDOMAIN)}"
 
   if [ "$ACMEDNS_UPDATE_URL" = "" ]; then
     ACMEDNS_UPDATE_URL="https://auth.acme-dns.io/update"
   fi
 
-  _saveaccountconf_mutable ACMEDNS_UPDATE_URL "$ACMEDNS_UPDATE_URL"
-  _saveaccountconf_mutable ACMEDNS_USERNAME "$ACMEDNS_USERNAME"
-  _saveaccountconf_mutable ACMEDNS_PASSWORD "$ACMEDNS_PASSWORD"
-  _saveaccountconf_mutable ACMEDNS_SUBDOMAIN "$ACMEDNS_SUBDOMAIN"
+  _savedomainconf_mutable ACMEDNS_UPDATE_URL "$ACMEDNS_UPDATE_URL"
+  _savedomainconf_mutable ACMEDNS_USERNAME "$ACMEDNS_USERNAME"
+  _savedomainconf_mutable ACMEDNS_PASSWORD "$ACMEDNS_PASSWORD"
+  _savedomainconf_mutable ACMEDNS_SUBDOMAIN "$ACMEDNS_SUBDOMAIN"
 
   export _H1="X-Api-User: $ACMEDNS_USERNAME"
   export _H2="X-Api-Key: $ACMEDNS_PASSWORD"

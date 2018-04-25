@@ -18,9 +18,9 @@ dns_inwx_add() {
   fulldomain=$1
   txtvalue=$2
 
-  INWX_User="${INWX_User:-$(_readaccountconf_mutable INWX_User)}"
-  INWX_Password="${INWX_Password:-$(_readaccountconf_mutable INWX_Password)}"
-  INWX_Shared_Secret="${INWX_Shared_Secret:-$(_readaccountconf_mutable INWX_Shared_Secret)}"
+  INWX_User="${INWX_User:-$(_readdomainconf_mutable INWX_User)}"
+  INWX_Password="${INWX_Password:-$(_readdomainconf_mutable INWX_Password)}"
+  INWX_Shared_Secret="${INWX_Shared_Secret:-$(_readdomainconf_mutable INWX_Shared_Secret)}"
   if [ -z "$INWX_User" ] || [ -z "$INWX_Password" ]; then
     INWX_User=""
     INWX_Password=""
@@ -30,9 +30,9 @@ dns_inwx_add() {
   fi
 
   #save the api key and email to the account conf file.
-  _saveaccountconf_mutable INWX_User "$INWX_User"
-  _saveaccountconf_mutable INWX_Password "$INWX_Password"
-  _saveaccountconf_mutable INWX_Shared_Secret "$INWX_Shared_Secret"
+  _savedomainconf_mutable INWX_User "$INWX_User"
+  _savedomainconf_mutable INWX_Password "$INWX_Password"
+  _savedomainconf_mutable INWX_Shared_Secret "$INWX_Shared_Secret"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then
@@ -53,8 +53,8 @@ dns_inwx_rm() {
   fulldomain=$1
   txtvalue=$2
 
-  INWX_User="${INWX_User:-$(_readaccountconf_mutable INWX_User)}"
-  INWX_Password="${INWX_Password:-$(_readaccountconf_mutable INWX_Password)}"
+  INWX_User="${INWX_User:-$(_readdomainconf_mutable INWX_User)}"
+  INWX_Password="${INWX_Password:-$(_readdomainconf_mutable INWX_Password)}"
   if [ -z "$INWX_User" ] || [ -z "$INWX_Password" ]; then
     INWX_User=""
     INWX_Password=""
@@ -64,8 +64,8 @@ dns_inwx_rm() {
   fi
 
   #save the api key and email to the account conf file.
-  _saveaccountconf_mutable INWX_User "$INWX_User"
-  _saveaccountconf_mutable INWX_Password "$INWX_Password"
+  _savedomainconf_mutable INWX_User "$INWX_User"
+  _savedomainconf_mutable INWX_Password "$INWX_Password"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then

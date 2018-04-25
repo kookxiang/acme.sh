@@ -83,7 +83,7 @@ validate() {
   _debug txtvalue "$txtvalue"
 
   #retrieve the API key from the environment variable if it exists, otherwise look for a saved key.
-  DH_API_KEY="${DH_API_KEY:-$(_readaccountconf_mutable DH_API_KEY)}"
+  DH_API_KEY="${DH_API_KEY:-$(_readdomainconf_mutable DH_API_KEY)}"
 
   if [ -z "$DH_API_KEY" ]; then
     DH_API_KEY=""
@@ -93,5 +93,5 @@ validate() {
   fi
 
   #save the api key to the account conf file.
-  _saveaccountconf_mutable DH_API_KEY "$DH_API_KEY"
+  _savedomainconf_mutable DH_API_KEY "$DH_API_KEY"
 }

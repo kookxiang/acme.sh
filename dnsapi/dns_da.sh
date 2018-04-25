@@ -9,7 +9,7 @@
 #
 # User must provide login data and URL to DirectAdmin incl. port.
 # You can create login key, by using the Login Keys function
-# ( https://da.example.com:8443/CMD_LOGIN_KEYS ), which only has access to 
+# ( https://da.example.com:8443/CMD_LOGIN_KEYS ), which only has access to
 # - CMD_API_DNS_CONTROL
 # - CMD_API_SHOW_DOMAINS
 #
@@ -50,16 +50,16 @@ dns_da_rm() {
 # Usage: _DA_credentials
 # It will check if the needed settings are available
 _DA_credentials() {
-  DA_Api="${DA_Api:-$(_readaccountconf_mutable DA_Api)}"
-  DA_Api_Insecure="${DA_Api_Insecure:-$(_readaccountconf_mutable DA_Api_Insecure)}"
+  DA_Api="${DA_Api:-$(_readdomainconf_mutable DA_Api)}"
+  DA_Api_Insecure="${DA_Api_Insecure:-$(_readdomainconf_mutable DA_Api_Insecure)}"
   if [ -z "${DA_Api}" ] || [ -z "${DA_Api_Insecure}" ]; then
     DA_Api=""
     DA_Api_Insecure=""
     _err "You haven't specified the DirectAdmin Login data, URL and whether you want check the DirectAdmin SSL cert. Please try again."
     return 1
   else
-    _saveaccountconf_mutable DA_Api "${DA_Api}"
-    _saveaccountconf_mutable DA_Api_Insecure "${DA_Api_Insecure}"
+    _savedomainconf_mutable DA_Api "${DA_Api}"
+    _savedomainconf_mutable DA_Api_Insecure "${DA_Api_Insecure}"
     # Set whether curl should use secure or insecure mode
     export HTTPS_INSECURE="${DA_Api_Insecure}"
   fi

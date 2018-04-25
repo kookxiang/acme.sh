@@ -79,8 +79,8 @@ _ovh_get_api() {
 }
 
 _initAuth() {
-  OVH_AK="${OVH_AK:-$(_readaccountconf_mutable OVH_AK)}"
-  OVH_AS="${OVH_AS:-$(_readaccountconf_mutable OVH_AS)}"
+  OVH_AK="${OVH_AK:-$(_readdomainconf_mutable OVH_AK)}"
+  OVH_AS="${OVH_AS:-$(_readdomainconf_mutable OVH_AS)}"
 
   if [ -z "$OVH_AK" ] || [ -z "$OVH_AS" ]; then
     OVH_AK=""
@@ -90,26 +90,26 @@ _initAuth() {
     return 1
   fi
 
-  if [ "$OVH_AK" != "$(_readaccountconf OVH_AK)" ]; then
+  if [ "$OVH_AK" != "$(_readdomainconf OVH_AK)" ]; then
     _info "It seems that your ovh key is changed, let's clear consumer key first."
-    _clearaccountconf OVH_CK
+    _cleardomainconf OVH_CK
   fi
-  _saveaccountconf_mutable OVH_AK "$OVH_AK"
-  _saveaccountconf_mutable OVH_AS "$OVH_AS"
+  _savedomainconf_mutable OVH_AK "$OVH_AK"
+  _savedomainconf_mutable OVH_AS "$OVH_AS"
 
-  OVH_END_POINT="${OVH_END_POINT:-$(_readaccountconf_mutable OVH_END_POINT)}"
+  OVH_END_POINT="${OVH_END_POINT:-$(_readdomainconf_mutable OVH_END_POINT)}"
   if [ -z "$OVH_END_POINT" ]; then
     OVH_END_POINT="ovh-eu"
   fi
   _info "Using OVH endpoint: $OVH_END_POINT"
   if [ "$OVH_END_POINT" != "ovh-eu" ]; then
-    _saveaccountconf_mutable OVH_END_POINT "$OVH_END_POINT"
+    _savedomainconf_mutable OVH_END_POINT "$OVH_END_POINT"
   fi
 
   OVH_API="$(_ovh_get_api $OVH_END_POINT)"
   _debug OVH_API "$OVH_API"
 
-  OVH_CK="${OVH_CK:-$(_readaccountconf_mutable OVH_CK)}"
+  OVH_CK="${OVH_CK:-$(_readdomainconf_mutable OVH_CK)}"
   if [ -z "$OVH_CK" ]; then
     _info "OVH consumer key is empty, Let's get one:"
     if ! _ovh_authentication; then
@@ -124,7 +124,7 @@ _initAuth() {
   if ! _ovh_rest GET "domain" || _contains "$response" "INVALID_CREDENTIAL"; then
     _err "The consumer key is invalid: $OVH_CK"
     _err "Please retry to create a new one."
-    _clearaccountconf OVH_CK
+    _cleardomainconf OVH_CK
     return 1
   fi
   _info "Consumer key is ok."
@@ -233,7 +233,7 @@ _ovh_authentication() {
   _secure_debug consumerKey "$consumerKey"
 
   OVH_CK="$consumerKey"
-  _saveaccountconf OVH_CK "$OVH_CK"
+  _savedomainconf OVH_CK "$OVH_CK"
 
   _info "Please open this link to do authentication: $(__green "$validationUrl")"
 

@@ -13,7 +13,7 @@ dns_selectel_add() {
   fulldomain=$1
   txtvalue=$2
 
-  SL_Key="${SL_Key:-$(_readaccountconf_mutable SL_Key)}"
+  SL_Key="${SL_Key:-$(_readdomainconf_mutable SL_Key)}"
 
   if [ -z "$SL_Key" ]; then
     SL_Key=""
@@ -23,7 +23,7 @@ dns_selectel_add() {
   fi
 
   #save the api key to the account conf file.
-  _saveaccountconf_mutable SL_Key "$SL_Key"
+  _savedomainconf_mutable SL_Key "$SL_Key"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then
@@ -50,7 +50,7 @@ dns_selectel_rm() {
   fulldomain=$1
   txtvalue=$2
 
-  SL_Key="${SL_Key:-$(_readaccountconf_mutable SL_Key)}"
+  SL_Key="${SL_Key:-$(_readdomainconf_mutable SL_Key)}"
 
   if [ -z "$SL_Key" ]; then
     SL_Key=""

@@ -13,13 +13,13 @@ dns_zilore_add() {
   _debug fulldomain "$fulldomain"
   _debug txtvalue "$txtvalue"
 
-  Zilore_Key="${Zilore_Key:-$(_readaccountconf_mutable Zilore_Key)}"
+  Zilore_Key="${Zilore_Key:-$(_readdomainconf_mutable Zilore_Key)}"
   if [ -z "$Zilore_Key" ]; then
     Zilore_Key=""
     _err "Please define Zilore API key"
     return 1
   fi
-  _saveaccountconf_mutable Zilore_Key "$Zilore_Key"
+  _savedomainconf_mutable Zilore_Key "$Zilore_Key"
 
   if ! _get_root "$fulldomain"; then
     _err "Unable to determine root domain"
@@ -50,13 +50,13 @@ dns_zilore_rm() {
   _debug fulldomain "$fulldomain"
   _debug txtvalue "$txtvalue"
 
-  Zilore_Key="${Zilore_Key:-$(_readaccountconf_mutable Zilore_Key)}"
+  Zilore_Key="${Zilore_Key:-$(_readdomainconf_mutable Zilore_Key)}"
   if [ -z "$Zilore_Key" ]; then
     Zilore_Key=""
     _err "Please define Zilore API key"
     return 1
   fi
-  _saveaccountconf_mutable Zilore_Key "$Zilore_Key"
+  _savedomainconf_mutable Zilore_Key "$Zilore_Key"
 
   if ! _get_root "$fulldomain"; then
     _err "Unable to determine root domain"

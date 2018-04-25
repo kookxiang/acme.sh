@@ -25,7 +25,7 @@ dns_dnsimple_add() {
   fi
 
   # save the oauth token for later
-  _saveaccountconf DNSimple_OAUTH_TOKEN "$DNSimple_OAUTH_TOKEN"
+  _savedomainconf DNSimple_OAUTH_TOKEN "$DNSimple_OAUTH_TOKEN"
 
   if ! _get_account_id; then
     _err "failed to retrive account id"

@@ -19,7 +19,7 @@ dns_duckdns_add() {
   fulldomain=$1
   txtvalue=$2
 
-  DuckDNS_Token="${DuckDNS_Token:-$(_readaccountconf_mutable DuckDNS_Token)}"
+  DuckDNS_Token="${DuckDNS_Token:-$(_readdomainconf_mutable DuckDNS_Token)}"
   if [ -z "$DuckDNS_Token" ]; then
     _err "You must export variable: DuckDNS_Token"
     _err "The token for your DuckDNS account is necessary."
@@ -28,7 +28,7 @@ dns_duckdns_add() {
   fi
 
   # Now save the credentials.
-  _saveaccountconf_mutable DuckDNS_Token "$DuckDNS_Token"
+  _savedomainconf_mutable DuckDNS_Token "$DuckDNS_Token"
 
   # Unfortunately, DuckDNS does not seems to support lookup domain through API
   # So I assume your credentials (which are your domain and token) are correct
@@ -61,7 +61,7 @@ dns_duckdns_rm() {
   fulldomain=$1
   txtvalue=$2
 
-  DuckDNS_Token="${DuckDNS_Token:-$(_readaccountconf_mutable DuckDNS_Token)}"
+  DuckDNS_Token="${DuckDNS_Token:-$(_readdomainconf_mutable DuckDNS_Token)}"
   if [ -z "$DuckDNS_Token" ]; then
     _err "You must export variable: DuckDNS_Token"
     _err "The token for your DuckDNS account is necessary."

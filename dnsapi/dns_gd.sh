@@ -15,8 +15,8 @@ dns_gd_add() {
   fulldomain=$1
   txtvalue=$2
 
-  GD_Key="${GD_Key:-$(_readaccountconf_mutable GD_Key)}"
-  GD_Secret="${GD_Secret:-$(_readaccountconf_mutable GD_Secret)}"
+  GD_Key="${GD_Key:-$(_readdomainconf_mutable GD_Key)}"
+  GD_Secret="${GD_Secret:-$(_readdomainconf_mutable GD_Secret)}"
   if [ -z "$GD_Key" ] || [ -z "$GD_Secret" ]; then
     GD_Key=""
     GD_Secret=""
@@ -26,8 +26,8 @@ dns_gd_add() {
   fi
 
   #save the api key and email to the account conf file.
-  _saveaccountconf_mutable GD_Key "$GD_Key"
-  _saveaccountconf_mutable GD_Secret "$GD_Secret"
+  _savedomainconf_mutable GD_Key "$GD_Key"
+  _savedomainconf_mutable GD_Secret "$GD_Secret"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then
@@ -73,8 +73,8 @@ dns_gd_rm() {
   fulldomain=$1
   txtvalue=$2
 
-  GD_Key="${GD_Key:-$(_readaccountconf_mutable GD_Key)}"
-  GD_Secret="${GD_Secret:-$(_readaccountconf_mutable GD_Secret)}"
+  GD_Key="${GD_Key:-$(_readdomainconf_mutable GD_Key)}"
+  GD_Secret="${GD_Secret:-$(_readdomainconf_mutable GD_Secret)}"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then

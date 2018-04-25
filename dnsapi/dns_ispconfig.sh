@@ -40,10 +40,10 @@ _ISPC_credentials() {
     _err "You haven't specified the ISPConfig Login data, URL and whether you want check the ISPC SSL cert. Please try again."
     return 1
   else
-    _saveaccountconf ISPC_User "${ISPC_User}"
-    _saveaccountconf ISPC_Password "${ISPC_Password}"
-    _saveaccountconf ISPC_Api "${ISPC_Api}"
-    _saveaccountconf ISPC_Api_Insecure "${ISPC_Api_Insecure}"
+    _savedomainconf ISPC_User "${ISPC_User}"
+    _savedomainconf ISPC_Password "${ISPC_Password}"
+    _savedomainconf ISPC_Api "${ISPC_Api}"
+    _savedomainconf ISPC_Api_Insecure "${ISPC_Api_Insecure}"
     # Set whether curl should use secure or insecure mode
     export HTTPS_INSECURE="${ISPC_Api_Insecure}"
   fi

@@ -89,7 +89,7 @@ _PDD_credentials() {
     _err "You can get it at https://pddimp.yandex.ru/api2/admin/get_token"
     return 1
   else
-    _saveaccountconf PDD_Token "${PDD_Token}"
+    _savedomainconf PDD_Token "${PDD_Token}"
   fi
 }
 

@@ -13,10 +13,10 @@ dns_azure_add() {
   fulldomain=$1
   txtvalue=$2
 
-  AZUREDNS_SUBSCRIPTIONID="${AZUREDNS_SUBSCRIPTIONID:-$(_readaccountconf_mutable AZUREDNS_SUBSCRIPTIONID)}"
-  AZUREDNS_TENANTID="${AZUREDNS_TENANTID:-$(_readaccountconf_mutable AZUREDNS_TENANTID)}"
-  AZUREDNS_APPID="${AZUREDNS_APPID:-$(_readaccountconf_mutable AZUREDNS_APPID)}"
-  AZUREDNS_CLIENTSECRET="${AZUREDNS_CLIENTSECRET:-$(_readaccountconf_mutable AZUREDNS_CLIENTSECRET)}"
+  AZUREDNS_SUBSCRIPTIONID="${AZUREDNS_SUBSCRIPTIONID:-$(_readdomainconf_mutable AZUREDNS_SUBSCRIPTIONID)}"
+  AZUREDNS_TENANTID="${AZUREDNS_TENANTID:-$(_readdomainconf_mutable AZUREDNS_TENANTID)}"
+  AZUREDNS_APPID="${AZUREDNS_APPID:-$(_readdomainconf_mutable AZUREDNS_APPID)}"
+  AZUREDNS_CLIENTSECRET="${AZUREDNS_CLIENTSECRET:-$(_readdomainconf_mutable AZUREDNS_CLIENTSECRET)}"
 
   if [ -z "$AZUREDNS_SUBSCRIPTIONID" ]; then
     AZUREDNS_SUBSCRIPTIONID=""
@@ -54,10 +54,10 @@ dns_azure_add() {
     return 1
   fi
   #save account details to account conf file.
-  _saveaccountconf_mutable AZUREDNS_SUBSCRIPTIONID "$AZUREDNS_SUBSCRIPTIONID"
-  _saveaccountconf_mutable AZUREDNS_TENANTID "$AZUREDNS_TENANTID"
-  _saveaccountconf_mutable AZUREDNS_APPID "$AZUREDNS_APPID"
-  _saveaccountconf_mutable AZUREDNS_CLIENTSECRET "$AZUREDNS_CLIENTSECRET"
+  _savedomainconf_mutable AZUREDNS_SUBSCRIPTIONID "$AZUREDNS_SUBSCRIPTIONID"
+  _savedomainconf_mutable AZUREDNS_TENANTID "$AZUREDNS_TENANTID"
+  _savedomainconf_mutable AZUREDNS_APPID "$AZUREDNS_APPID"
+  _savedomainconf_mutable AZUREDNS_CLIENTSECRET "$AZUREDNS_CLIENTSECRET"
 
   accesstoken=$(_azure_getaccess_token "$AZUREDNS_TENANTID" "$AZUREDNS_APPID" "$AZUREDNS_CLIENTSECRET")
 
@@ -115,10 +115,10 @@ dns_azure_rm() {
   fulldomain=$1
   txtvalue=$2
 
-  AZUREDNS_SUBSCRIPTIONID="${AZUREDNS_SUBSCRIPTIONID:-$(_readaccountconf_mutable AZUREDNS_SUBSCRIPTIONID)}"
-  AZUREDNS_TENANTID="${AZUREDNS_TENANTID:-$(_readaccountconf_mutable AZUREDNS_TENANTID)}"
-  AZUREDNS_APPID="${AZUREDNS_APPID:-$(_readaccountconf_mutable AZUREDNS_APPID)}"
-  AZUREDNS_CLIENTSECRET="${AZUREDNS_CLIENTSECRET:-$(_readaccountconf_mutable AZUREDNS_CLIENTSECRET)}"
+  AZUREDNS_SUBSCRIPTIONID="${AZUREDNS_SUBSCRIPTIONID:-$(_readdomainconf_mutable AZUREDNS_SUBSCRIPTIONID)}"
+  AZUREDNS_TENANTID="${AZUREDNS_TENANTID:-$(_readdomainconf_mutable AZUREDNS_TENANTID)}"
+  AZUREDNS_APPID="${AZUREDNS_APPID:-$(_readdomainconf_mutable AZUREDNS_APPID)}"
+  AZUREDNS_CLIENTSECRET="${AZUREDNS_CLIENTSECRET:-$(_readdomainconf_mutable AZUREDNS_CLIENTSECRET)}"
 
   if [ -z "$AZUREDNS_SUBSCRIPTIONID" ]; then
     AZUREDNS_SUBSCRIPTIONID=""
@@ -234,7 +234,7 @@ _azure_rest() {
     _debug "http response code $_code"
     if [ "$_code" = "401" ]; then
       # we have an invalid access token set to expired
-      _saveaccountconf_mutable AZUREDNS_TOKENVALIDTO "0"
+      _savedomainconf_mutable AZUREDNS_TOKENVALIDTO "0"
       _err "access denied make sure your Azure settings are correct. See $WIKI"
       return 1
     fi
@@ -262,8 +262,8 @@ _azure_getaccess_token() {
   clientID=$2
   clientSecret=$3
 
-  accesstoken="${AZUREDNS_BEARERTOKEN:-$(_readaccountconf_mutable AZUREDNS_BEARERTOKEN)}"
-  expires_on="${AZUREDNS_TOKENVALIDTO:-$(_readaccountconf_mutable AZUREDNS_TOKENVALIDTO)}"
+  accesstoken="${AZUREDNS_BEARERTOKEN:-$(_readdomainconf_mutable AZUREDNS_BEARERTOKEN)}"
+  expires_on="${AZUREDNS_TOKENVALIDTO:-$(_readdomainconf_mutable AZUREDNS_TOKENVALIDTO)}"
 
   # can we reuse the bearer token?
   if [ -n "$accesstoken" ] && [ -n "$expires_on" ]; then
@@ -298,8 +298,8 @@ _azure_getaccess_token() {
     _err "error $response"
     return 1
   fi
-  _saveaccountconf_mutable AZUREDNS_BEARERTOKEN "$accesstoken"
-  _saveaccountconf_mutable AZUREDNS_TOKENVALIDTO "$expires_on"
+  _savedomainconf_mutable AZUREDNS_BEARERTOKEN "$accesstoken"
+  _savedomainconf_mutable AZUREDNS_TOKENVALIDTO "$expires_on"
   printf "%s" "$accesstoken"
   return 0
 }

@@ -14,8 +14,8 @@ dns_unoeuro_add() {
   fulldomain=$1
   txtvalue=$2
 
-  UNO_Key="${UNO_Key:-$(_readaccountconf_mutable UNO_Key)}"
-  UNO_User="${UNO_User:-$(_readaccountconf_mutable UNO_User)}"
+  UNO_Key="${UNO_Key:-$(_readdomainconf_mutable UNO_Key)}"
+  UNO_User="${UNO_User:-$(_readdomainconf_mutable UNO_User)}"
   if [ -z "$UNO_Key" ] || [ -z "$UNO_User" ]; then
     UNO_Key=""
     UNO_User=""
@@ -31,8 +31,8 @@ dns_unoeuro_add() {
   fi
 
   #save the api key and email to the account conf file.
-  _saveaccountconf_mutable UNO_Key "$UNO_Key"
-  _saveaccountconf_mutable UNO_User "$UNO_User"
+  _savedomainconf_mutable UNO_Key "$UNO_Key"
+  _savedomainconf_mutable UNO_User "$UNO_User"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then
@@ -86,8 +86,8 @@ dns_unoeuro_rm() {
   fulldomain=$1
   txtvalue=$2
 
-  UNO_Key="${UNO_Key:-$(_readaccountconf_mutable UNO_Key)}"
-  UNO_User="${UNO_User:-$(_readaccountconf_mutable UNO_User)}"
+  UNO_Key="${UNO_Key:-$(_readdomainconf_mutable UNO_Key)}"
+  UNO_User="${UNO_User:-$(_readdomainconf_mutable UNO_User)}"
   if [ -z "$UNO_Key" ] || [ -z "$UNO_User" ]; then
     UNO_Key=""
     UNO_User=""

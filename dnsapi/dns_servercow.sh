@@ -26,8 +26,8 @@ dns_servercow_add() {
   _debug fulldomain "$fulldomain"
   _debug txtvalue "$txtvalue"
 
-  SERVERCOW_API_Username="${SERVERCOW_API_Username:-$(_readaccountconf_mutable SERVERCOW_API_Username)}"
-  SERVERCOW_API_Password="${SERVERCOW_API_Password:-$(_readaccountconf_mutable SERVERCOW_API_Password)}"
+  SERVERCOW_API_Username="${SERVERCOW_API_Username:-$(_readdomainconf_mutable SERVERCOW_API_Username)}"
+  SERVERCOW_API_Password="${SERVERCOW_API_Password:-$(_readdomainconf_mutable SERVERCOW_API_Password)}"
   if [ -z "$SERVERCOW_API_Username" ] || [ -z "$SERVERCOW_API_Password" ]; then
     SERVERCOW_API_Username=""
     SERVERCOW_API_Password=""
@@ -37,8 +37,8 @@ dns_servercow_add() {
   fi
 
   # save the credentials to the account conf file
-  _saveaccountconf_mutable SERVERCOW_API_Username "$SERVERCOW_API_Username"
-  _saveaccountconf_mutable SERVERCOW_API_Password "$SERVERCOW_API_Password"
+  _savedomainconf_mutable SERVERCOW_API_Username "$SERVERCOW_API_Username"
+  _savedomainconf_mutable SERVERCOW_API_Password "$SERVERCOW_API_Password"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then
@@ -73,8 +73,8 @@ dns_servercow_rm() {
   _debug fulldomain "$fulldomain"
   _debug txtvalue "$fulldomain"
 
-  SERVERCOW_API_Username="${SERVERCOW_API_Username:-$(_readaccountconf_mutable SERVERCOW_API_Username)}"
-  SERVERCOW_API_Password="${SERVERCOW_API_Password:-$(_readaccountconf_mutable SERVERCOW_API_Password)}"
+  SERVERCOW_API_Username="${SERVERCOW_API_Username:-$(_readdomainconf_mutable SERVERCOW_API_Username)}"
+  SERVERCOW_API_Password="${SERVERCOW_API_Password:-$(_readdomainconf_mutable SERVERCOW_API_Password)}"
   if [ -z "$SERVERCOW_API_Username" ] || [ -z "$SERVERCOW_API_Password" ]; then
     SERVERCOW_API_Username=""
     SERVERCOW_API_Password=""

@@ -29,8 +29,8 @@ dns_namecom_add() {
   fi
 
   # Save them in configuration.
-  _saveaccountconf Namecom_Username "$Namecom_Username"
-  _saveaccountconf Namecom_Token "$Namecom_Token"
+  _savedomainconf Namecom_Username "$Namecom_Username"
+  _savedomainconf Namecom_Token "$Namecom_Token"
 
   # Login in using API
   if ! _namecom_login; then

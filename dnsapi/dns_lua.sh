@@ -16,8 +16,8 @@ dns_lua_add() {
   fulldomain=$1
   txtvalue=$2
 
-  LUA_Key="${LUA_Key:-$(_readaccountconf_mutable LUA_Key)}"
-  LUA_Email="${LUA_Email:-$(_readaccountconf_mutable LUA_Email)}"
+  LUA_Key="${LUA_Key:-$(_readdomainconf_mutable LUA_Key)}"
+  LUA_Email="${LUA_Email:-$(_readdomainconf_mutable LUA_Email)}"
   LUA_auth=$(printf "%s" "$LUA_Email:$LUA_Key" | _base64)
 
   if [ -z "$LUA_Key" ] || [ -z "$LUA_Email" ]; then
@@ -29,8 +29,8 @@ dns_lua_add() {
   fi
 
   #save the api key and email to the account conf file.
-  _saveaccountconf_mutable LUA_Key "$LUA_Key"
-  _saveaccountconf_mutable LUA_Email "$LUA_Email"
+  _savedomainconf_mutable LUA_Key "$LUA_Key"
+  _savedomainconf_mutable LUA_Email "$LUA_Email"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then
@@ -59,8 +59,8 @@ dns_lua_rm() {
   fulldomain=$1
   txtvalue=$2
 
-  LUA_Key="${LUA_Key:-$(_readaccountconf_mutable LUA_Key)}"
-  LUA_Email="${LUA_Email:-$(_readaccountconf_mutable LUA_Email)}"
+  LUA_Key="${LUA_Key:-$(_readdomainconf_mutable LUA_Key)}"
+  LUA_Email="${LUA_Email:-$(_readdomainconf_mutable LUA_Email)}"
   LUA_auth=$(printf "%s" "$LUA_Email:$LUA_Key" | _base64)
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then

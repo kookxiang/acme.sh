@@ -36,7 +36,7 @@ dns_lexicon_add() {
   Lx_name_v=$(eval echo \$"$Lx_name")
   _secure_debug "$Lx_name" "$Lx_name_v"
   if [ "$Lx_name_v" ]; then
-    _saveaccountconf "$Lx_name" "$Lx_name_v"
+    _savedomainconf "$Lx_name" "$Lx_name_v"
     eval export "$Lx_name"
   fi
 
@@ -45,7 +45,7 @@ dns_lexicon_add() {
   Lx_token_v=$(eval echo \$"$Lx_token")
   _secure_debug "$Lx_token" "$Lx_token_v"
   if [ "$Lx_token_v" ]; then
-    _saveaccountconf "$Lx_token" "$Lx_token_v"
+    _savedomainconf "$Lx_token" "$Lx_token_v"
     eval export "$Lx_token"
   fi
 
@@ -54,7 +54,7 @@ dns_lexicon_add() {
   Lx_password_v=$(eval echo \$"$Lx_password")
   _secure_debug "$Lx_password" "$Lx_password_v"
   if [ "$Lx_password_v" ]; then
-    _saveaccountconf "$Lx_password" "$Lx_password_v"
+    _savedomainconf "$Lx_password" "$Lx_password_v"
     eval export "$Lx_password"
   fi
 
@@ -64,7 +64,7 @@ dns_lexicon_add() {
   _secure_debug "$Lx_domaintoken" "$Lx_domaintoken_v"
   if [ "$Lx_domaintoken_v" ]; then
     eval export "$Lx_domaintoken"
-    _saveaccountconf "$Lx_domaintoken" "$Lx_domaintoken_v"
+    _savedomainconf "$Lx_domaintoken" "$Lx_domaintoken_v"
   fi
 
   $lexicon_cmd "$PROVIDER" create "${domain}" TXT --name="_acme-challenge.${domain}." --content="${txtvalue}"

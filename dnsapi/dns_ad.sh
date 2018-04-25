@@ -24,7 +24,7 @@ dns_ad_add() {
     return 1
   fi
 
-  _saveaccountconf AD_API_KEY "$AD_API_KEY"
+  _savedomainconf AD_API_KEY "$AD_API_KEY"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then

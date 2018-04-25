@@ -20,8 +20,8 @@ dns_kinghost_add() {
   fulldomain=$1
   txtvalue=$2
 
-  KINGHOST_Username="${KINGHOST_Username:-$(_readaccountconf_mutable KINGHOST_Username)}"
-  KINGHOST_Password="${KINGHOST_Password:-$(_readaccountconf_mutable KINGHOST_Password)}"
+  KINGHOST_Username="${KINGHOST_Username:-$(_readdomainconf_mutable KINGHOST_Username)}"
+  KINGHOST_Password="${KINGHOST_Password:-$(_readdomainconf_mutable KINGHOST_Password)}"
   if [ -z "$KINGHOST_Username" ] || [ -z "$KINGHOST_Password" ]; then
     KINGHOST_Username=""
     KINGHOST_Password=""
@@ -31,8 +31,8 @@ dns_kinghost_add() {
   fi
 
   #save the credentials to the account conf file.
-  _saveaccountconf_mutable KINGHOST_Username "$KINGHOST_Username"
-  _saveaccountconf_mutable KINGHOST_Password "$KINGHOST_Password"
+  _savedomainconf_mutable KINGHOST_Username "$KINGHOST_Username"
+  _savedomainconf_mutable KINGHOST_Password "$KINGHOST_Password"
 
   _debug "Getting txt records"
   _kinghost_rest GET "dns" "name=$fulldomain&content=$txtvalue"
@@ -61,8 +61,8 @@ dns_kinghost_rm() {
   fulldomain=$1
   txtvalue=$2
 
-  KINGHOST_Password="${KINGHOST_Password:-$(_readaccountconf_mutable KINGHOST_Password)}"
-  KINGHOST_Username="${KINGHOST_Username:-$(_readaccountconf_mutable KINGHOST_Username)}"
+  KINGHOST_Password="${KINGHOST_Password:-$(_readdomainconf_mutable KINGHOST_Password)}"
+  KINGHOST_Username="${KINGHOST_Username:-$(_readdomainconf_mutable KINGHOST_Username)}"
   if [ -z "$KINGHOST_Password" ] || [ -z "$KINGHOST_Username" ]; then
     KINGHOST_Password=""
     KINGHOST_Username=""

@@ -31,8 +31,8 @@ dns_dynu_add() {
   fi
 
   #save the client id and secret to the account conf file.
-  _saveaccountconf Dynu_ClientId "$Dynu_ClientId"
-  _saveaccountconf Dynu_Secret "$Dynu_Secret"
+  _savedomainconf Dynu_ClientId "$Dynu_ClientId"
+  _savedomainconf Dynu_Secret "$Dynu_Secret"
 
   if [ -z "$Dynu_Token" ]; then
     _info "Getting Dynu token."
@@ -77,8 +77,8 @@ dns_dynu_rm() {
   fi
 
   #save the client id and secret to the account conf file.
-  _saveaccountconf Dynu_ClientId "$Dynu_ClientId"
-  _saveaccountconf Dynu_Secret "$Dynu_Secret"
+  _savedomainconf Dynu_ClientId "$Dynu_ClientId"
+  _savedomainconf Dynu_Secret "$Dynu_Secret"
 
   if [ -z "$Dynu_Token" ]; then
     _info "Getting Dynu token."

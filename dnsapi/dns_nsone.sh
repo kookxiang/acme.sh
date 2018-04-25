@@ -23,7 +23,7 @@ dns_nsone_add() {
   fi
 
   #save the api key and email to the account conf file.
-  _saveaccountconf NS1_Key "$NS1_Key"
+  _savedomainconf NS1_Key "$NS1_Key"
 
   _debug "First detect the root zone"
   if ! _get_root "$fulldomain"; then

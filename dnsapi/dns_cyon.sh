@@ -64,12 +64,12 @@ _cyon_load_credentials() {
 
   # Save the login credentials to the account.conf file.
   _debug "Save credentials to account.conf"
-  _saveaccountconf CY_Username "${CY_Username}"
-  _saveaccountconf CY_Password_B64 "$CY_Password_B64"
+  _savedomainconf CY_Username "${CY_Username}"
+  _savedomainconf CY_Password_B64 "$CY_Password_B64"
   if [ ! -z "${CY_OTP_Secret}" ]; then
-    _saveaccountconf CY_OTP_Secret "$CY_OTP_Secret"
+    _savedomainconf CY_OTP_Secret "$CY_OTP_Secret"
   else
-    _clearaccountconf CY_OTP_Secret
+    _cleardomainconf CY_OTP_Secret
   fi
 }
 

@@ -14,7 +14,7 @@ dns_zonomi_add() {
   fulldomain=$1
   txtvalue=$2
 
-  ZM_Key="${ZM_Key:-$(_readaccountconf_mutable ZM_Key)}"
+  ZM_Key="${ZM_Key:-$(_readdomainconf_mutable ZM_Key)}"
 
   if [ -z "$ZM_Key" ]; then
     ZM_Key=""
@@ -24,7 +24,7 @@ dns_zonomi_add() {
   fi
 
   #save the api key to the account conf file.
-  _saveaccountconf_mutable ZM_Key "$ZM_Key"
+  _savedomainconf_mutable ZM_Key "$ZM_Key"
 
   _info "Get existing txt records for $fulldomain"
   if ! _zm_request "action=QUERY&name=$fulldomain"; then
@@ -54,7 +54,7 @@ dns_zonomi_rm() {
   fulldomain=$1
   txtvalue=$2
 
-  ZM_Key="${ZM_Key:-$(_readaccountconf_mutable ZM_Key)}"
+  ZM_Key="${ZM_Key:-$(_readdomainconf_mutable ZM_Key)}"
   if [ -z "$ZM_Key" ]; then
     ZM_Key=""
     _err "You don't specify zonomi api key yet."

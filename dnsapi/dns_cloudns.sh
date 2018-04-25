@@ -95,9 +95,9 @@ _dns_cloudns_init_check() {
     return 0
   fi
 
-  CLOUDNS_AUTH_ID="${CLOUDNS_AUTH_ID:-$(_readaccountconf_mutable CLOUDNS_AUTH_ID)}"
-  CLOUDNS_SUB_AUTH_ID="${CLOUDNS_SUB_AUTH_ID:-$(_readaccountconf_mutable CLOUDNS_SUB_AUTH_ID)}"
-  CLOUDNS_AUTH_PASSWORD="${CLOUDNS_AUTH_PASSWORD:-$(_readaccountconf_mutable CLOUDNS_AUTH_PASSWORD)}"
+  CLOUDNS_AUTH_ID="${CLOUDNS_AUTH_ID:-$(_readdomainconf_mutable CLOUDNS_AUTH_ID)}"
+  CLOUDNS_SUB_AUTH_ID="${CLOUDNS_SUB_AUTH_ID:-$(_readdomainconf_mutable CLOUDNS_SUB_AUTH_ID)}"
+  CLOUDNS_AUTH_PASSWORD="${CLOUDNS_AUTH_PASSWORD:-$(_readdomainconf_mutable CLOUDNS_AUTH_PASSWORD)}"
   if [ -z "$CLOUDNS_AUTH_ID$CLOUDNS_SUB_AUTH_ID" ] || [ -z "$CLOUDNS_AUTH_PASSWORD" ]; then
     CLOUDNS_AUTH_ID=""
     CLOUDNS_SUB_AUTH_ID=""
@@ -125,9 +125,9 @@ _dns_cloudns_init_check() {
   fi
 
   # save the api id and password to the account conf file.
-  _saveaccountconf_mutable CLOUDNS_AUTH_ID "$CLOUDNS_AUTH_ID"
-  _saveaccountconf_mutable CLOUDNS_SUB_AUTH_ID "$CLOUDNS_SUB_AUTH_ID"
-  _saveaccountconf_mutable CLOUDNS_AUTH_PASSWORD "$CLOUDNS_AUTH_PASSWORD"
+  _savedomainconf_mutable CLOUDNS_AUTH_ID "$CLOUDNS_AUTH_ID"
+  _savedomainconf_mutable CLOUDNS_SUB_AUTH_ID "$CLOUDNS_SUB_AUTH_ID"
+  _savedomainconf_mutable CLOUDNS_AUTH_PASSWORD "$CLOUDNS_AUTH_PASSWORD"
 
   CLOUDNS_INIT_CHECK_COMPLETED=1
 
